@@ -46,6 +46,8 @@ public class Serie implements Comparable<Serie> {
 			return 1;
 		} else if (recomendar instanceof RecomendarProximoEpisodio) {
 			return 2;
+		} else if (recomendar instanceof RecomendarEpisodio) {
+			return 3;
 		}
 		return -1;
 	}

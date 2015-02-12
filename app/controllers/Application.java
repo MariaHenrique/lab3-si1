@@ -5,8 +5,8 @@ import java.util.Collections;
 import java.util.List;
 
 import models.Episodio;
-import models.EstrategiaRecomendar;
 import models.GenericDAO;
+import models.RecomendarEpisodio;
 import models.RecomendarEpisodioMaisAntigo;
 import models.RecomendarProximoEpisodio;
 import models.Serie;
@@ -73,11 +73,19 @@ public class Application extends Controller {
 		
 		Integer valor = Integer.parseInt(requestData.get("recomendar"));
 		
-		if (valor == 1){
+		switch (valor){
+		
+		case 1:
 			serie.setRecomendar(new RecomendarEpisodioMaisAntigo());
-		}
-		else if (valor == 2){
+			break;
+		case 2:
 			serie.setRecomendar(new RecomendarProximoEpisodio());
+			break;
+		case 3:
+			serie.setRecomendar(new RecomendarEpisodio());
+			break;
+		default:
+			serie.setRecomendar(new RecomendarEpisodioMaisAntigo());
 		}
 		
         return redirect("/#serie-" + serie.getId());
