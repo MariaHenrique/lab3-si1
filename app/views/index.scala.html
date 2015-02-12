@@ -65,6 +65,20 @@
 						    <p class="title-item text-info">@serie.getNome</p>
 						    <p class="title-description">@serie.getTotalDeEpisodios() episódio(s), 
 						    @serie.getTotalDeEpisodiosAssistidos() assistido(s) e @serie.getTotalDeEpisodiosAssistir() a assistir</p>
+						    <!-- Minha estrategia -->
+						    <div class="panel panel-success">
+						    	<div class="panel-heading">Opções de recomendação:</div>
+						    	<div class="panel-body">
+						    	   <form method="POST" action="serie/recomendar">
+						    	    <input type="hidden" name="id" value="@serie.getId" />
+								   	<input type="radio" name="recomendar" value="1" @if(serie.getRecomendacao() == 1) { checked } > Recomendar pelo episódio mais antigo</input><br/>
+								   	<input type="radio" name="recomendar" value="2" @if(serie.getRecomendacao() == 2) { checked } > Recomendar pelo episódio seguinte</input>
+						    	   	<br/>
+						    	   	<center><input type="submit" value="Enviar" class="btn btn-success" /></center>
+						    	   </form>
+						    	</div>
+						    </div>
+						    <!--  -->
 						    @if(serie.hasTemporadaAssistidaCompleta) {
 							    <div class="panel panel-success">
 							    	<div class="panel-heading">Temporadas Assistidas Completas:</div>

@@ -3,11 +3,16 @@ package models;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
+
+import play.data.validation.Constraints.Required;
 
 @Entity
 @Table(name="serie")
@@ -22,14 +27,42 @@ public class Serie implements Comparable<Serie> {
 	
 	@OneToMany(mappedBy = "serie")
 	private List<Episodio> episodios;
+	
+	@OneToOne(cascade = CascadeType.ALL)
+	@Required
+	@NotNull
+	private EstrategiaRecomendar recomendar;
 		
-	public Serie(String nome) {
+	public EstrategiaRecomendar getRecomendar() {
+		return recomendar;
+	}
+
+	public void setRecomendar(EstrategiaRecomendar recomendar) {
+		this.recomendar = recomendar;
+	} 
+
+	public int getRecomendacao() {
+		if (recomendar instanceof RecomendarEpisodioMaisAntigo) {
+			return 1;
+		} else if (recomendar instanceof RecomendarProximoEpisodio) {
+			return 2;
+		}
+		return -1;
+	}
+	
+	public Serie(String nome, EstrategiaRecomendar recomendar) {
 		this.nome = nome;
 		this.status = false;
+		this.recomendar = recomendar;
 		this.episodios = new ArrayList<Episodio>();
 	}
 		
+	public Serie(String nome) {
+		this(nome, new RecomendarEpisodioMaisAntigo());
+	}
+	
 	public Serie() {
+		
 	}
 
 	public String getNome() {
@@ -110,22 +143,7 @@ public class Serie implements Comparable<Serie> {
 	}
 	
 	public Episodio getProximoEpisodio(int temporada) {
-		List<Episodio> eps = getEpisodios(temporada);
-		int i = 0;
-		int index = -1;
-		while (i < eps.size()) {
-			if(eps.get(i).isAssistido()) {
-				index = i;
-			}
-			i++;
-		}
-		if(index == i-1) {
-			return null;
-		}
-		if(index == -1) {
-			return eps.get(0);
-		}
-		return eps.get(index+1);	
+		return recomendar.getProximoEpisodioAAssistir(temporada, this);
 	}
 	
 	public List<Integer> getTemporadas() {

@@ -5,7 +5,10 @@ import java.util.Collections;
 import java.util.List;
 
 import models.Episodio;
+import models.EstrategiaRecomendar;
 import models.GenericDAO;
+import models.RecomendarEpisodioMaisAntigo;
+import models.RecomendarProximoEpisodio;
 import models.Serie;
 import play.data.DynamicForm;
 import play.data.Form;
@@ -59,5 +62,25 @@ public class Application extends Controller {
 
         return redirect("/#serie-" + idSerie);
     }
+	
+	@Transactional
+	public static Result mudarEstrategia(){
+		
+		DynamicForm requestData = Form.form().bindFromRequest();
+		Long id = Long.parseLong(requestData.get("id"));
+		
+		Serie serie = dao.findByEntityId(Serie.class, id);
+		
+		Integer valor = Integer.parseInt(requestData.get("recomendar"));
+		
+		if (valor == 1){
+			serie.setRecomendar(new RecomendarEpisodioMaisAntigo());
+		}
+		else if (valor == 2){
+			serie.setRecomendar(new RecomendarProximoEpisodio());
+		}
+		
+        return redirect("/#serie-" + serie.getId());
+	}
 
 }
