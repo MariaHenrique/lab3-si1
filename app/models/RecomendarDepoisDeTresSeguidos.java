@@ -5,11 +5,11 @@ import java.util.List;
 import javax.persistence.Entity;
 
 @Entity
-public class RecomendarEpisodio extends EstrategiaRecomendar {
+public class RecomendarDepoisDeTresSeguidos extends EstrategiaRecomendar {
 
 	private static final int LIMIAR_ASSISTIDO = 3;
 
-	public RecomendarEpisodio(){
+	public RecomendarDepoisDeTresSeguidos(){
 
 	}
 

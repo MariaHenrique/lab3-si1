@@ -5,9 +5,9 @@ import java.util.List;
 import javax.persistence.Entity;
 
 @Entity
-public class RecomendarProximoEpisodio extends EstrategiaRecomendar {
+public class RecomendarDepoisDoUltimoAssistido extends EstrategiaRecomendar {
 	
-	public RecomendarProximoEpisodio() {
+	public RecomendarDepoisDoUltimoAssistido() {
 		
 	}
 	
