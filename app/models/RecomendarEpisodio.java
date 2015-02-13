@@ -7,32 +7,52 @@ import javax.persistence.Entity;
 @Entity
 public class RecomendarEpisodio extends EstrategiaRecomendar {
 
-
 	public RecomendarEpisodio(){
 
 	}
 
+
+
 	@Override
-	public Episodio getProximoEpisodioAAssistir(int temporada, Serie contexto) {
-		List<Episodio> eps = contexto.getEpisodios(temporada);		
-		int size = eps.size( );
-		int cont = 0;
+	public Episodio getProximoEpisodioAAssistir(int temporada, Serie serie) {
 
-		for (int i = 0; i < size; i++) {			
-			if (!eps.get(i).isAssistido()){		
-				int j = i+1;
-				while (eps.get(j).isAssistido()){
-					cont++;
-					j++;
-				}
-				if (cont >= 3 &&  (i + cont + 1) <= size - 1){
-					return eps.get(i + cont + 1);
-				}
+		List<Episodio> eps = serie.getEpisodios(temporada);		
+		int size = eps.size();
 
-			}	
-		
-		}
+
+		for (int i = 0; i < size; i++){	
+			
+			if (!eps.get(i).isAssistido()){	
+				boolean quantAssistido = contaEpisodiosAssistidos(eps.subList(i+1, size));
+				if (i == size - 1 || (i != size- 1 && !quantAssistido)){	
+					return eps.get(i);					
+				} 				
+			}
+		}		
 		return null;
 	}
 
+	private boolean contaEpisodiosAssistidos(List<Episodio> episodiosAssistidos) {
+		int assistido = 0;
+		for (Episodio ep : episodiosAssistidos) {
+			if (ep.isAssistido()){
+				assistido++;				
+			}
+			if (assistido >= 3){
+
+				return true;
+			}
+		}		
+		return false;
+	}
 }
+
+
+
+
+
+
+
+
+
+
