@@ -48,7 +48,7 @@ public class Serie implements Comparable<Serie> {
 	public int getRecomendacao() {
 		if (recomendar instanceof RecomendarEpisodioMaisAntigo) {
 			return OPCAO_UM;
-		} else if (recomendar instanceof RecomendarDepoisDoUltimoAssistido) {
+		} else if (recomendar instanceof RecomendarEpisodioSeguinte) {
 			return OPCA0_DOIS;
 		} else if (recomendar instanceof RecomendarDepoisDeTresSeguidos) {
 			return OPCAO_TRES;

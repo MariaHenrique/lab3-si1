@@ -8,7 +8,7 @@ import models.Episodio;
 import models.GenericDAO;
 import models.RecomendarDepoisDeTresSeguidos;
 import models.RecomendarEpisodioMaisAntigo;
-import models.RecomendarDepoisDoUltimoAssistido;
+import models.RecomendarEpisodioSeguinte;
 import models.Serie;
 import play.data.DynamicForm;
 import play.data.Form;
@@ -82,7 +82,7 @@ public class Application extends Controller {
 			serie.setRecomendar(new RecomendarEpisodioMaisAntigo());
 			break;
 		case OPCA0_DOIS:
-			serie.setRecomendar(new RecomendarDepoisDoUltimoAssistido());
+			serie.setRecomendar(new RecomendarEpisodioSeguinte());
 			break;
 		case OPCAO_TRES:
 			serie.setRecomendar(new RecomendarDepoisDeTresSeguidos());

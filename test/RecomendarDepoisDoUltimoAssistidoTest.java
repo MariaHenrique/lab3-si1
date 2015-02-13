@@ -1,5 +1,5 @@
 import static org.junit.Assert.*;
-import models.RecomendarDepoisDoUltimoAssistido;
+import models.RecomendarEpisodioSeguinte;
 import models.Serie;
 
 import org.junit.Before;
@@ -23,7 +23,7 @@ public class RecomendarDepoisDoUltimoAssistidoTest {
 		serie.addEpisodio("And the Break-up Scene", 2, 1);
 		serie.addEpisodio("And Strokes of Goodwill", 3, 1);
 		
-		serie.setRecomendar(new RecomendarDepoisDoUltimoAssistido());
+		serie.setRecomendar(new RecomendarEpisodioSeguinte());
 		
 		serie.getEpisodios(1).get(0).mudaStatus();
 		
