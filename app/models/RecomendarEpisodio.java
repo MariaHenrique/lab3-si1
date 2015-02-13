@@ -7,6 +7,8 @@ import javax.persistence.Entity;
 @Entity
 public class RecomendarEpisodio extends EstrategiaRecomendar {
 
+	private static final int LIMIAR_ASSISTIDO = 3;
+
 	public RecomendarEpisodio(){
 
 	}
@@ -38,7 +40,7 @@ public class RecomendarEpisodio extends EstrategiaRecomendar {
 			if (ep.isAssistido()){
 				assistido++;				
 			}
-			if (assistido >= 3){
+			if (assistido >= LIMIAR_ASSISTIDO){
 
 				return true;
 			}

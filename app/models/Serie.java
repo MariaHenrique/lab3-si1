@@ -18,6 +18,10 @@ import play.data.validation.Constraints.Required;
 @Table(name="serie")
 public class Serie implements Comparable<Serie> {
 	
+	private static final int OPCAO_UM = 1;
+	private static final int OPCA0_DOIS = 2;
+	private static final int OPCAO_TRES = 3;
+
 	@Id
     @GeneratedValue
     private Long idSerie;
@@ -43,11 +47,11 @@ public class Serie implements Comparable<Serie> {
 
 	public int getRecomendacao() {
 		if (recomendar instanceof RecomendarEpisodioMaisAntigo) {
-			return 1;
+			return OPCAO_UM;
 		} else if (recomendar instanceof RecomendarProximoEpisodio) {
-			return 2;
+			return OPCA0_DOIS;
 		} else if (recomendar instanceof RecomendarEpisodio) {
-			return 3;
+			return OPCAO_TRES;
 		}
 		return -1;
 	}

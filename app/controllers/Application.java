@@ -19,6 +19,9 @@ import views.html.*;
 public class Application extends Controller {
 	
 	private static GenericDAO dao = new GenericDAO();
+	private static final int OPCAO_UM = 1;
+	private static final int OPCA0_DOIS = 2;
+	private static final int OPCAO_TRES = 3;
 
 	@Transactional
     public static Result index() {
@@ -75,13 +78,13 @@ public class Application extends Controller {
 		
 		switch (valor){
 		
-		case 1:
+		case OPCAO_UM:
 			serie.setRecomendar(new RecomendarEpisodioMaisAntigo());
 			break;
-		case 2:
+		case OPCA0_DOIS:
 			serie.setRecomendar(new RecomendarProximoEpisodio());
 			break;
-		case 3:
+		case OPCAO_TRES:
 			serie.setRecomendar(new RecomendarEpisodio());
 			break;
 		default:
